@@ -63,3 +63,26 @@ class RedactingFormatter(logging.Formatter):
         return filter_datum(
             self.fields, self.REDACTION, super().format(record), self.SEPARATOR
         )
+
+
+def main() -> None:
+    """The main function."""
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM users")
+    logger = get_logger()
+    redaction = logger.handlers[0].formatter.REDACTION
+    for row in cursor.fetchall():
+        name, email, phone, ssn, password, ip, last_login, user_agent = row
+        formatted_row = (
+            f"name={redaction}; email={redaction}; phone={redaction}; "
+            f"ssn={redaction}; password={redaction}; ip={ip}; "
+            f"last_login={last_login}; user_agent={user_agent}"
+        )
+        logger.info(formatted_row)
+    cursor.close()
+    conn.close()
+
+
+if __name__ == "__main__":
+    main()
