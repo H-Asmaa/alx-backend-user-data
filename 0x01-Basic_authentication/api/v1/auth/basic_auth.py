@@ -47,7 +47,8 @@ class BasicAuth(Auth):
     def user_object_from_credentials(
             self, user_email: str, user_pwd: str) -> TypeVar('User'):
         """A method that returns the user instance based on credentials."""
-        if user_email and isinstance(user_email, str
+        if user_email and isinstance(
+            user_email, str
         ) and user_pwd and isinstance(user_pwd, str):
             try:
                 userList = User.search({'email': user_email})
