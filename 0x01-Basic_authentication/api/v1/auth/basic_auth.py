@@ -3,6 +3,7 @@
 0x01. Basic authentication
 """
 from api.v1.auth.auth import Auth
+import base64
 
 
 class BasicAuth(Auth):
@@ -18,3 +19,15 @@ class BasicAuth(Auth):
             and authorization_header.startswith("Basic ")
             else None
         )
+
+    def decode_base64_authorization_header(
+            self, base64_authorization_header: str) -> str:
+        """A method that returns the decoded value of base64."""
+        if base64_authorization_header is not None and isinstance(
+                base64_authorization_header, str):
+            try:
+                decodedBytes = base64.b64decode(base64_authorization_header)
+                return decodedBytes.decode('utf-8')
+            except base64.binascii.Error:
+                return None
+        return None
