@@ -31,3 +31,13 @@ class BasicAuth(Auth):
             except base64.binascii.Error:
                 return None
         return None
+
+    def extract_user_credentials(
+            self, decoded_base64_authorization_header: str) -> (str, str):
+        """A method that returns user's email & password from base64 decode."""
+        if decoded_base64_authorization_header is not None and isinstance(
+            decoded_base64_authorization_header, str
+        ) and ':' in decoded_base64_authorization_header:
+            user, password = decoded_base64_authorization_header.split(':')
+            return (user, password)
+        return (None, None)
