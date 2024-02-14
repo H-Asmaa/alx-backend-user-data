@@ -34,7 +34,7 @@ This structure is the typical layout for a python project, this one is specifica
 		- The folder [auth] containing the two classes we will be working with so far.
 			- `auth.py` : The authentication class, that contains a method that checks if the path requested requires an authentication or not after checking it existence in the excluded paths. It has another method that extracts the header from the request.
 			- `basic_auth.py` : Containing BasicAuth class that inherits from Auth and that is where we see the mechanism of one of the simplest API authentication which is **Basic Authentication**. The last method returns a user object after taking a couple of phases.
-				1. extracting the base64 header, which requires checking if the authorization header starts with `Basic` meaning it was encoded to base64. Then removing the `Basic` string.
+				1. extracting the base64 from authorization field in the header, which requires checking if the authorization header starts with `Basic` meaning it was encoded to base64. Then removing the `Basic` string.
 				2. Decoding that encoded string to get the original string.
 				3. Getting the user's email and password from the base64 decode.
 				4. Getting the user instance with the looked up credentials.
