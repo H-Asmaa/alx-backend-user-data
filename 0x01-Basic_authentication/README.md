@@ -28,21 +28,21 @@ This structure is the typical layout for a python project, this one is specifica
 - When ever you see a file __ init __ .py inside a folder, it means that the folder is a python package.
 - The root folder [api] is the core of the application, it contains all the sub directories.
 	- The folder [models] containing the models base.py and user.py
-		- <mark>base.py</mark> : The base class that defines methods for initializing the attributes and converting to a JSON dictionary, and loading from file.... The  basic methods that we will be using to interact with the storage.
-		- <mark>user.py</mark> : A class inheriting from Base that defines the attributes for a user, and defines methods that check the password's validity...
+		- `base.py` : The base class that defines methods for initializing the attributes and converting to a JSON dictionary, and loading from file.... The  basic methods that we will be using to interact with the storage.
+		- `user.py` : A class inheriting from Base that defines the attributes for a user, and defines methods that check the password's validity...
 	- The folder [v1] is specifying the version 1 of this application. It contains the file app.py and __ init __ .py.
 		- The folder [auth] containing the two classes we will be working with so far.
-			- <mark>auth.py</mark> : The authentication class, that contains a method that checks if the path requested requires an authentication or not after checking it existence in the excluded paths. It has another method that extracts the header from the request.
-			- <mark>basic_auth.py</mark> : Containing BasicAuth class that inherits from Auth and that is where we see the mechanism of one of the simplest API authentication which is **Basic Authentication**. The last method returns a user object after taking a couple of phases.
+			- `auth.py` : The authentication class, that contains a method that checks if the path requested requires an authentication or not after checking it existence in the excluded paths. It has another method that extracts the header from the request.
+			- `basic_auth.py` : Containing BasicAuth class that inherits from Auth and that is where we see the mechanism of one of the simplest API authentication which is **Basic Authentication**. The last method returns a user object after taking a couple of phases.
 				1. extracting the base64 header, which requires checking if the authorization header starts with `Basic` meaning it was encoded to base64. Then removing the `Basic` string.
 				2. Decoding that encoded string to get the original string.
 				3. Getting the user's email and password from the base64 decode.
 				4. Getting the user instance with the looked up credentials.
 				5. Finally returning the instance.
 		- The folder [views]
-			- <mark>users.py</mark> : basic endpoints of the API. This file contains the routes for the user and the method for each route.
-			- <mark>index.py</mark> : All users endpoints. This file contains the routes for /status, /stats, /unauthorized, /forbidden.
-		- <mark>app.py</mark> : The main entry point for  the API. Since we are setting a flask application that serves as an API, we will see some error handling in there, and a before request. Above there is the check for the content of the environment variable that we will set when running the application. And based on that content we are determining which class to instantiate from.
+			- `users.py` : basic endpoints of the API. This file contains the routes for the user and the method for each route.
+			- `index.py` : All users endpoints. This file contains the routes for /status, /stats, /unauthorized, /forbidden.
+		- `app.py` : The main entry point for  the API. Since we are setting a flask application that serves as an API, we will see some error handling in there, and a before request. Above there is the check for the content of the environment variable that we will set when running the application. And based on that content we are determining which class to instantiate from.
 ## SETUP THE APPLICATION
 ```bash
 pip3 install -r requirements.txt
