@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-0x01. Basic authentication
+0x02-Session_authentication
 """
-from auth import Auth
+from api.v1.auth.basic_auth import Auth
 
 
 class SessionAuth(Auth):

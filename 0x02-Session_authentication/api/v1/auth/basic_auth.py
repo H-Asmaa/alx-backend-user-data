@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-0x01. Basic authentication
+0x02-Session_authentication
 """
 from api.v1.auth.auth import Auth
 import base64
