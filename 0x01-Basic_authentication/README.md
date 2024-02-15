@@ -26,10 +26,10 @@
 **UNDERSTANDING THE STRUCTURE**<br>
 This structure is the typical layout for a python project, this one is specifically related to basic authentication in an API.
 - When ever you see a file __ init __ .py inside a folder, it means that the folder is a python package.
+- The folder [models] containing the models base.py and user.py
+	- `base.py` : The base class that defines methods for initializing the attributes and converting to a JSON dictionary, and loading from file.... The  basic methods that we will be using to interact with the storage.
+	- `user.py` : A class inheriting from Base that defines the attributes for a user, and defines methods that check the password's validity...
 - The root folder [api] is the core of the application, it contains all the sub directories.
-	- The folder [models] containing the models base.py and user.py
-		- `base.py` : The base class that defines methods for initializing the attributes and converting to a JSON dictionary, and loading from file.... The  basic methods that we will be using to interact with the storage.
-		- `user.py` : A class inheriting from Base that defines the attributes for a user, and defines methods that check the password's validity...
 	- The folder [v1] is specifying the version 1 of this application. It contains the file app.py and __ init __ .py.
 		- The folder [auth] containing the two classes we will be working with so far.
 			- `auth.py` : The authentication class, that contains a method that checks if the path requested requires an authentication or not after checking it existence in the excluded paths. It has another method that extracts the header from the request.
