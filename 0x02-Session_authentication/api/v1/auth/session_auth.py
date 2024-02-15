@@ -23,3 +23,9 @@ class SessionAuth(Auth):
         """A method that returns a user id based on a session id."""
         if session_id and isinstance(session_id, str):
             return SessionAuth.user_id_by_session_id.get(session_id)
+
+    def current_user(self, request=None):
+        """A method that returns a user instance based on a cookie value."""
+        from models.user import User
+        return User.get(self.user_id_for_session_id(
+            self.session_cookie(request)))
