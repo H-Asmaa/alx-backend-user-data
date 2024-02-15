@@ -27,5 +27,19 @@ class SessionAuth(Auth):
     def current_user(self, request=None):
         """A method that returns a user instance based on a cookie value."""
         from models.user import User
+
         return User.get(self.user_id_for_session_id(
-            self.session_cookie(request)))
+            self.session_cookie(request)
+            ))
+
+    def destroy_session(self, request=None):
+        """A method that deletes the user session."""
+        session_id = self.session_cookie(request)
+        if (
+            request is not None
+            and session_id
+            and self.user_id_for_session_id(session_id)
+        ):
+            del self.user_id_by_session_id[session_id]
+            return True
+        return False

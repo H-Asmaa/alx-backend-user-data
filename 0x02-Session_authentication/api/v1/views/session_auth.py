@@ -2,13 +2,13 @@
 """ Module of session views
 """
 from api.v1.views import app_views
-from flask import request, jsonify, make_response
+from flask import request, jsonify, abort
 from models.user import User
 from os import getenv
 
 
 @app_views.route("/auth_session/login", methods=["POST"], strict_slashes=False)
-def user_session() -> str:
+def session_login() -> str:
     """POST /api/v1/auth_session/login
     Return:
       - A route for the user authentication.
@@ -32,3 +32,18 @@ def user_session() -> str:
     response = jsonify(user.to_json())
     response.set_cookie(session_name, session_id)
     return response
+
+
+@app_views.route("/auth_session/logout",
+                 methods=["DELETE"],
+                 strict_slashes=False)
+def session_logout() -> str:
+    """POST /api/v1/auth_session/logout
+    Return:
+      - A route for the user logout.
+    """
+    from api.v1.app import auth
+
+    if not auth.destroy_session(request):
+        abort(404)
+    return jsonify({}), 200
