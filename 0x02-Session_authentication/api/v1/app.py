@@ -28,6 +28,10 @@ elif auth_type == "session_exp_auth":
     from .auth.session_exp_auth import SessionExpAuth
 
     auth = SessionExpAuth()
+elif auth_type == "session_db_auth":
+    from .auth.session_db_auth import SessionDBAuth
+
+    auth = SessionAuth
 else:
     from api.v1.auth.auth import Auth
 
