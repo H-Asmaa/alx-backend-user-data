@@ -23,11 +23,16 @@ class SessionDBAuth(SessionExpAuth):
         """A method that returns the User ID by requesting
         UserSession in the database based on session_id"""
         if session_id and isinstance(session_id, str):
-            userSession = UserSession().search({'session_id': session_id})
+            userSession = UserSession().search({"session_id": session_id})
             return userSession[0].user_id if len(userSession) > 0 else None
         return None
 
     def destroy_session(self, request=None):
         """A method that destroys the UserSession based on the
         Session ID from the request cookie"""
-        pass
+        session_id = self.session_cookie(request)
+        userSession = UserSession().search({"session_id": session_id})
+        if len(userSession):
+            userSession[0].delete()
+            return True
+        return False
