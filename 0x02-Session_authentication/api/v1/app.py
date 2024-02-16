@@ -31,7 +31,7 @@ elif auth_type == "session_exp_auth":
 elif auth_type == "session_db_auth":
     from .auth.session_db_auth import SessionDBAuth
 
-    auth = SessionAuth
+    auth = SessionDBAuth()
 else:
     from api.v1.auth.auth import Auth
 
