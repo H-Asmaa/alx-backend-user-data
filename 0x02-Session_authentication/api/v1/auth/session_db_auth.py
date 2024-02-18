@@ -25,14 +25,15 @@ class SessionDBAuth(SessionExpAuth):
     def user_id_for_session_id(self, session_id=None):
         """A method that returns the User ID by requesting
         UserSession in the database based on session_id"""
-        if session_id and isinstance(session_id, str):
-            if super().user_id_for_session_id(session_id) is None:
-                return None
-            try:
-                userSession = UserSession().search({"session_id": session_id})
-            except Exception:
-                return None
-            if userSession is None or userSession == []:
+        try:
+            userSession = UserSession().search({"session_id": session_id})
+        except Exception:
+            return None
+        if len(userSession):
+            created_at = userSession[0].created_at
+            current_time = datetime.utcnow()
+            expiration = created_at + timedelta(seconds=self.session_duration)
+            if expiration < current_time:
                 return None
             return userSession[0].user_id
         return None
