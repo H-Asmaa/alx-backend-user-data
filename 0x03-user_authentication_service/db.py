@@ -34,11 +34,7 @@ class DB:
 
     def add_user(self, email: str, hashed_password: str) -> User:
         """A method that adds a user to the database."""
-        try:
-            user = User(email=email, hashed_password=hashed_password)
-            self._session.add(user)
-            self.__session.commit()
-            return user
-        except SQLAlchemyError as exception:
-            self.__session.rollback()
-            raise exception
+        user = User(email=email, hashed_password=hashed_password)
+        self._session.add(user)
+        self.__session.commit()
+        return user
