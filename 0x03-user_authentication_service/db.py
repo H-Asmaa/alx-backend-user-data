@@ -37,7 +37,7 @@ class DB:
         self._session.commit()
         return user
 
-    def find_user_by(self, **kwargs):
+    def find_user_by(self, **kwargs) -> User:
         """A method that finds a user based on kwargs."""
         try:
             result = self._session.query(User).filter_by(**kwargs).first()
