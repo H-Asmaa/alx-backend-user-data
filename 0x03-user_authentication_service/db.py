@@ -41,8 +41,8 @@ class DB:
         """A method that finds a user based on kwargs."""
         try:
             result = self._session.query(User).filter_by(**kwargs).first()
-        except InvalidRequestError:
-            raise InvalidRequestError
+        except InvalidRequestError as invalidReq:
+            raise invalidReq
         if result:
             return result
         raise NoResultFound
