@@ -66,5 +66,16 @@ def profile():
     abort(403)
 
 
+@app.roote("/reset_password", methods=["POST"])
+def get_reset_password_token():
+    """A function for the route of reseting a password."""
+    email = request.form.get("email")
+    user = AUTH.find_user_by(email=email)
+    if user:
+        token = user.get_reset_password_token(email)
+        return jsonify({"email": f"{email}", "reset_token": f"{token}"})
+    abort(403)
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
