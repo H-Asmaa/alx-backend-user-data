@@ -63,6 +63,7 @@ def profile():
         user = AUTH.get_user_from_session_id(session_id)
         if user:
             return jsonify({"email": f"{user.email}"}), 200
+    abort(403)
 
 
 if __name__ == "__main__":
