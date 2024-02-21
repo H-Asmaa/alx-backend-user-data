@@ -41,7 +41,7 @@ def login():
         response = jsonify({"email": f"{email}", "message": "logged in"})
         response.set_cookie("session_id", session_id)
         return response
-    return
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
