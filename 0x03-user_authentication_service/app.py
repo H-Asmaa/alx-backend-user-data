@@ -2,7 +2,7 @@
 """
 0x03-user_authentication_service
 """
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, abort
 from auth import Auth
 
 
@@ -27,6 +27,21 @@ def user():
     except ValueError:
         return jsonify({"message": "email already registered"}), 400
 
+
+@app.route("/sessions", methods=["POST"])
+def login():
+    """A function that takes care of the login."""
+    email = request.form.get("email")
+    password = request.form.get("password")
+    if email and password:
+        validation = AUTH.valid_login(email=email, password=password)
+        if not validation:
+            abort(401)
+        session_id = AUTH.create_session(email=email)
+        response = jsonify({"email": f"{email}", "message": "logged in"})
+        response.set_cookie("session_id", session_id)
+        return response
+    return
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
