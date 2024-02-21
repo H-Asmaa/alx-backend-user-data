@@ -14,6 +14,11 @@ def _hash_password(password: str) -> bytes:
     return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
 
 
+def _generate_uuid() -> str:
+    """A method that generates a UUID."""
+    return str(uuid.uuid4())
+
+
 class Auth:
     """Auth class to interact with the authentication database."""
 
@@ -37,8 +42,4 @@ class Auth:
             user = self._db.find_user_by(email=email)
         except NoResultFound:
             return False
-        return bcrypt.checkpw(password.encode('utf-8'), user.hashed_password)
-
-    def _generate_uuid() -> str:
-        """A method that generates a UUID."""
-        return str(uuid.uuid4())
+        return bcrypt.checkpw(password.encode("utf-8"), user.hashed_password)
