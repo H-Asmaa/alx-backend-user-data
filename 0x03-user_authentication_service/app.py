@@ -66,7 +66,7 @@ def profile():
     abort(403)
 
 
-@app.roote("/reset_password", methods=["POST"])
+@app.route("/reset_password", methods=["POST"])
 def get_reset_password_token():
     """A function for the route of reseting a password."""
     email = request.form.get("email")
