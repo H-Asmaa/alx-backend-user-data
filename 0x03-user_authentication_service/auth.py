@@ -53,3 +53,13 @@ class Auth:
         newUuid = _generate_uuid()
         user.session_id = newUuid
         return user.session_id
+
+    def get_user_from_session_id(self, session_id: str) -> User:
+        """A method that gets a user by session id."""
+        if session_id:
+            try:
+                user = self._db.find_user_by(session_id=session_id)
+                return user
+            except NoResultFound:
+                raise NoResultFound
+        return None
