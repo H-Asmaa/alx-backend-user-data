@@ -12,3 +12,5 @@ auth.register_user(email, password)
 
 session_id = auth.create_session(email)
 print(session_id)
+auth.update_password(auth.get_reset_password_token(email), "password")
+print(auth.valid_login(email, "password"))
