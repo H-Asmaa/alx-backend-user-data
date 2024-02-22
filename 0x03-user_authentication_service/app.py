@@ -23,7 +23,7 @@ def user():
         email = request.form.get("email")
         password = request.form.get("password")
         AUTH.register_user(email=email, password=password)
-        return jsonify({"email": f"{email}", "message": "user created"}), 200
+        return jsonify({"email": email, "message": "user created"}), 200
     except ValueError:
         return jsonify({"message": "email already registered"}), 400
 
@@ -38,7 +38,7 @@ def login():
         if not validation:
             abort(401)
         session_id = AUTH.create_session(email=email)
-        response = jsonify({"email": f"{email}", "message": "logged in"})
+        response = jsonify({"email": email, "message": "logged in"})
         response.set_cookie("session_id", session_id)
         return response
 
@@ -62,7 +62,7 @@ def profile():
     if session_id:
         user = AUTH.get_user_from_session_id(session_id)
         if user:
-            return jsonify({"email": f"{user.email}"}), 200
+            return jsonify({"email": user.email}), 200
     abort(403)
 
 
@@ -95,4 +95,4 @@ def update_password():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port="5000")
+    app.run(host="0.0.0.0", port="5000", debug=True)
