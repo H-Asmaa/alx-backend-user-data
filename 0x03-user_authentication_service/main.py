@@ -19,7 +19,8 @@ def register_user(email: str, password: str) -> None:
 def log_in_wrong_password(email: str, password: str) -> None:
     """A test for the function that does the login verification."""
     response = requests.post(
-        "http://localhost:5000/sessions", {"password": password, "email": email}
+        "http://localhost:5000/sessions",
+        {"password": password, "email": email}
     )
     assert response.status_code == 401
 
@@ -27,7 +28,8 @@ def log_in_wrong_password(email: str, password: str) -> None:
 def log_in(email: str, password: str) -> str:
     """A test for the function that does the login."""
     response = requests.post(
-        "http://localhost:5000/sessions", {"password": password, "email": email}
+        "http://localhost:5000/sessions",
+        {"password": password, "email": email}
     )
     assert response.status_code == 200
     assert response.headers.get("Content-Type", "") == "application/json"
@@ -59,7 +61,8 @@ def log_out(session_id: str) -> None:
 
 def reset_password_token(email: str) -> str:
     """A test for the function that resets the password token."""
-    response = requests.post("http://localhost:5000/reset_password", {"email": email})
+    response = requests.post("http://localhost:5000/reset_password",
+                             {"email": email})
     assert response.status_code == 200
     return response.json().get("reset_token")
 
@@ -68,7 +71,9 @@ def update_password(email: str, reset_token: str, new_password: str) -> None:
     """A test for the function that updates a password."""
     response = requests.put(
         "http://localhost:5000/reset_password",
-        {"email": email, "reset_token": reset_token, "new_password": new_password},
+        {"email": email,
+         "reset_token": reset_token,
+         "new_password": new_password},
     )
     assert response.status_code == 200
     assert response.json() == {"email": email, "message": "Password updated"}
